@@ -1,0 +1,12 @@
+/_build/
+/cover/
+/deps/
+/doc/
+/.fetch
+erl_crash.dump
+*.ez
+adventofcode-*.tar
+/tmp/
+.idea
+*.iml
+mix.lock
