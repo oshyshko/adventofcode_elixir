@@ -10,3 +10,4 @@ adventofcode-*.tar
 .idea
 *.iml
 mix.lock
+adventofcode
