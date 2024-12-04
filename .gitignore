@@ -11,3 +11,4 @@ adventofcode-*.tar
 *.iml
 mix.lock
 adventofcode
+/.iex.history/
