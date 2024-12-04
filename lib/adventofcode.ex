@@ -47,12 +47,13 @@ defmodule Adventofcode do
 
   defdelegate sort(xs), to: Enum
   defdelegate frequencies(xs), to: Enum
+  defdelegate count(xs), to: Enum
   defdelegate sum(xs), to: Enum
 
   defdelegate chunk_every(xs, count, step, leftover), to: Enum
 
   # (a -> b) -> f (g a) -> f (g b)
-  def mmap(xs, f), do: Enum.map(xs, fn x -> Enum.map(x, f) end)
+  def mmap(xs, f), do: map(xs, fn x -> map(x, f) end)
   # TODO find flip
   def app(args, f), do: apply(f, args)
 

@@ -17,12 +17,12 @@ defmodule Y24.D02 do
   # string -> ([int] -> [[int]]) -> int
   def solve(s, explode) do
     parse(s)
-    |> Enum.map(explode)
+    |> map(explode)
     |> filter(fn xs -> any?(xs, &safe?/1) end)
-    |> length
+    |> count
   end
 
   # string -> int
   def solve1(s), do: solve(s, fn xs -> [xs] end)
-  def solve2(s), do: solve(s, &for(i <- 0..(length(&1) - 1), do: concat(take(&1, i), drop(&1, i + 1))))
+  def solve2(s), do: solve(s, &for(i <- 0..(count(&1) - 1), do: concat(take(&1, i), drop(&1, i + 1))))
 end
