@@ -65,5 +65,6 @@ defmodule Adventofcode do
   def main(_args) do
     run("Y24.D01")
     run("Y24.D02")
+    run("Y24.D03")
   end
 end
