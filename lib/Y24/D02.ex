@@ -23,6 +23,6 @@ defmodule Y24.D02 do
   end
 
   # string -> int
-  def solve1(s), do: solve(s, fn xs -> [xs] end)
+  def solve1(s), do: solve(s, &[&1])
   def solve2(s), do: solve(s, &for(i <- 0..(count(&1) - 1), do: concat(take(&1, i), drop(&1, i + 1))))
 end
