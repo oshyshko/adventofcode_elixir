@@ -11,7 +11,7 @@ defmodule Y24.D02 do
   def safe?(xs) do
     xs = chunk_every(xs, 2, 1, :discard) |> map(fn [x, y] -> y - x end)
 
-    all?(xs, &member?([1, 2, 3], &1)) || all?(xs, &member?([-1, -2, -3], &1))
+    all?(xs, &member?(1..3, &1)) || all?(xs, &member?(-1..-3, &1))
   end
 
   # string -> ([int] -> [[int]]) -> int
