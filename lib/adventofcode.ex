@@ -12,22 +12,10 @@ defmodule Adventofcode do
     {:ok, pid}
   end
 
-  def run(yxxdxx) do
-    input = readInput(yxxdxx)
-    module = String.to_existing_atom("Elixir.#{yxxdxx}")
-
-    case Code.ensure_compiled(module) do
-      {:module, _} -> :ok
-      {:error, e} -> raise("Can't find module #{yxxdxx}: #{inspect(e)}")
-    end
-
-    solve1 = Function.capture(module, String.to_existing_atom("solve1"), 1)
-    solve2 = Function.capture(module, String.to_existing_atom("solve2"), 1)
-    IO.puts("#{yxxdxx} #{to_string(solve1.(input))} #{to_string(solve2.(input))}")
-  end
-
   def lines(s), do: String.split(s, ~r/\R/, trim: true)
   def words(s), do: String.split(s, ~r/\s+/, trim: true)
+
+  def concat_binaries(xs), do: Enum.reduce(xs, &(&2 <> &1))
 
   # TODO find a better way to re-export
   defdelegate any?(xs, f), to: Enum
@@ -37,6 +25,7 @@ defmodule Adventofcode do
   defdelegate filter(xs, f), to: Enum
   defdelegate count(xs, f), to: Enum
 
+  defdelegate at(xs, n), to: Enum
   defdelegate take(xs, n), to: Enum
   defdelegate drop(xs, n), to: Enum
   defdelegate concat(xs, ys), to: Enum
@@ -57,14 +46,30 @@ defmodule Adventofcode do
   # TODO find flip
   def app(args, f), do: apply(f, args)
 
+  # days
   def readInput(yxxdxx) do
     {:ok, input} = File.read("res/" <> String.replace(yxxdxx, ".", "/") <> ".txt")
     input
+  end
+
+  def run(yxxdxx) do
+    input = readInput(yxxdxx)
+    module = String.to_existing_atom("Elixir.#{yxxdxx}")
+
+    case Code.ensure_compiled(module) do
+      {:module, _} -> :ok
+      {:error, e} -> raise("Can't find module #{yxxdxx}: #{inspect(e)}")
+    end
+
+    solve1 = Function.capture(module, String.to_existing_atom("solve1"), 1)
+    solve2 = Function.capture(module, String.to_existing_atom("solve2"), 1)
+    IO.puts("#{yxxdxx} #{to_string(solve1.(input))} #{to_string(solve2.(input))}")
   end
 
   def main(_args) do
     run("Y24.D01")
     run("Y24.D02")
     run("Y24.D03")
+    run("Y24.D04")
   end
 end
