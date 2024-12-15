@@ -7,14 +7,10 @@ defmodule Y24.D04 do
   def contains_trace(v, p, d, what), do: contains_trace1(v, p, d, what, 0, byte_size(what))
 
   def contains_trace1(v, p, d, what, i, n) do
-    if i == n do
-      true
-    else
-      x = Vec.at(v, p)
-
-      if x == :binary.at(what, i),
-        do: contains_trace1(v, Vec.dim_mappend(p, d), d, what, i + 1, n),
-        else: false
+    cond do
+      i == n -> true
+      Vec.at(v, p) == :binary.at(what, i) -> contains_trace1(v, Vec.dim_mappend(p, d), d, what, i + 1, n)
+      true -> false
     end
   end
 
