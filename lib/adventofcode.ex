@@ -15,15 +15,21 @@ defmodule Adventofcode do
   def lines(s), do: String.split(s, ~r/\R/, trim: true)
   def words(s), do: String.split(s, ~r/\s+/, trim: true)
 
+  # collections
   def concat_binaries(xs), do: Enum.reduce(xs, &(&2 <> &1))
 
   # TODO find a better way to re-export
+  defdelegate to_integer(x), to: String
+
   defdelegate any?(xs, f), to: Enum
   defdelegate all?(xs, f), to: Enum
-  defdelegate member?(xs, f), to: Enum
+  defdelegate member?(xs, x), to: Enum
   defdelegate map(xs, f), to: Enum
   defdelegate filter(xs, f), to: Enum
   defdelegate count(xs, f), to: Enum
+  defdelegate chunk_by(xs, f), to: Enum
+
+  defdelegate reduce(xs, a, f), to: Enum
 
   defdelegate at(xs, n), to: Enum
   defdelegate take(xs, n), to: Enum

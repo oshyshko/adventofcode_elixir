@@ -5,7 +5,7 @@ defmodule Y24.D03 do
   def parse(s) do
     Regex.scan(~r/(mul)\((\d+),(\d+)\)|do\(\)|don't\(\)/u, s)
     |> map(fn
-      [_, "mul", x, y] -> {:mul, String.to_integer(x), String.to_integer(y)}
+      [_, "mul", x, y] -> {:mul, to_integer(x), to_integer(y)}
       ["do()"] -> :do
       ["don't()"] -> :dont
     end)
@@ -26,7 +26,7 @@ defmodule Y24.D03 do
     end
 
     parse(s)
-    |> Enum.reduce({[], :do}, do_dont)
+    |> reduce({[], :do}, do_dont)
     |> elem(0)
     |> map(&eval/1)
     |> sum

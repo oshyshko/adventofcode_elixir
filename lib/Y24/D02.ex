@@ -5,7 +5,7 @@ defmodule Y24.D02 do
   def parse(s) do
     lines(s)
     |> map(&words/1)
-    |> mmap(&String.to_integer/1)
+    |> mmap(&to_integer/1)
   end
 
   def safe?(xs) do
