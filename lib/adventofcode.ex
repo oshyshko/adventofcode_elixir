@@ -12,8 +12,17 @@ defmodule Adventofcode do
     {:ok, pid}
   end
 
-  def lines(s), do: String.split(s, ~r/\R/, trim: true)
+  # strings
+  def empty?(s), do: s == ""
+
+  def lines(s) do
+    xs = String.split(s, ~r/\R/) |> reverse
+    reverse(if hd(xs) == "", do: tl(xs), else: xs)
+  end
+
   def words(s), do: String.split(s, ~r/\s+/, trim: true)
+  def unpipe(s), do: String.split(s, ~r/\|/, trim: true)
+  def uncsv(s), do: String.split(s, ~r/\,/, trim: true)
 
   # collections
   def concat_binaries(xs), do: Enum.reduce(xs, &(&2 <> &1))
@@ -41,6 +50,8 @@ defmodule Adventofcode do
   defdelegate unzip(xs), to: Enum
 
   defdelegate sort(xs), to: Enum
+  defdelegate sort(xs, f), to: Enum
+  defdelegate reverse(xs), to: Enum
   defdelegate frequencies(xs), to: Enum
   defdelegate count(xs), to: Enum
   defdelegate sum(xs), to: Enum
@@ -51,6 +62,15 @@ defmodule Adventofcode do
   def mmap(xs, f), do: map(xs, fn x -> map(x, f) end)
   # TODO find flip
   def app(args, f), do: apply(f, args)
+
+  # combinatorics
+  # pairs([1, 2, 3, 4]) => [{1, 2}, {1, 3}, {1, 4}, {2, 3}, {2, 4}, {3, 4}]
+  def pairs(xs) do
+    case xs do
+      [] -> []
+      [x | xs] -> for(y <- xs, do: {x, y}) ++ pairs(xs)
+    end
+  end
 
   # days
   def readInput(yxxdxx) do
@@ -77,5 +97,6 @@ defmodule Adventofcode do
     run("Y24.D02")
     run("Y24.D03")
     run("Y24.D04")
+    run("Y24.D05")
   end
 end
