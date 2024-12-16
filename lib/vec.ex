@@ -13,7 +13,7 @@ defmodule Vec do
   defmacro dr, do: {1, 1}
   defmacro diags, do: [ul(), ur(), dl(), dr()]
 
-  defmacro dirs8, do: udlr() ++ diags()
+  defmacro udlr_diags, do: udlr() ++ diags()
 
   # TODO make multidim
   defstruct dims: {0, 0}, binary: []

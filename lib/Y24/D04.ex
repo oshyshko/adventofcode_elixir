@@ -21,7 +21,7 @@ defmodule Y24.D04 do
     sum(
       for y <- 0..(ym - 1),
           x <- 0..(xm - 1),
-          d <- Vec.dirs8(),
+          d <- Vec.udlr_diags(),
           contains_trace(v, {y, x}, d, "XMAS") do
         1
       end
