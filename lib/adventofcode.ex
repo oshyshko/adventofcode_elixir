@@ -58,10 +58,15 @@ defmodule Adventofcode do
 
   defdelegate chunk_every(xs, count, step, leftover), to: Enum
 
+  defdelegate cycle(xs), to: Stream
+
   # (a -> b) -> f (g a) -> f (g b)
   def mmap(xs, f), do: map(xs, fn x -> map(x, f) end)
   # TODO find flip
   def app(args, f), do: apply(f, args)
+
+  def stream_head(xs), do: hd(take(xs, 1))
+  def stream_tail(xs), do: Stream.drop(xs, 1)
 
   # combinatorics
   # pairs([1, 2, 3, 4]) => [{1, 2}, {1, 3}, {1, 4}, {2, 3}, {2, 4}, {3, 4}]
@@ -98,5 +103,6 @@ defmodule Adventofcode do
     run("Y24.D03")
     run("Y24.D04")
     run("Y24.D05")
+    run("Y24.D06")
   end
 end

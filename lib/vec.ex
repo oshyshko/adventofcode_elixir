@@ -37,5 +37,14 @@ defmodule Vec do
     end
   end
 
+  def each(%Vec{dims: {ym, xm}}), do: for(y <- 0..(ym - 1), x <- 0..(xm - 1), do: {y, x})
+
+  def match(%Vec{dims: {_ym, xm}, binary: binary}, x) do
+    case :binary.match(binary, [x]) do
+      :nomatch -> :nomatch
+      {i, _} -> {div(i, xm), rem(i, xm)}
+    end
+  end
+
   def dim_mappend({y1, x1}, {y2, x2}), do: {y1 + y2, x1 + x2}
 end

@@ -16,13 +16,12 @@ defmodule Y24.D04 do
 
   # string -> int
   def solve1(s) do
-    %Vec{dims: {ym, xm}} = v = parse(s)
+    v = parse(s)
 
     sum(
-      for y <- 0..(ym - 1),
-          x <- 0..(xm - 1),
+      for p <- Vec.each(v),
           d <- Vec.udlr_diags(),
-          contains_trace(v, {y, x}, d, "XMAS") do
+          contains_trace(v, p, d, "XMAS") do
         1
       end
     )
