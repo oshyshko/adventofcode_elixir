@@ -7,21 +7,26 @@ defmodule Y24.D06 do
     {v, {_, _} = Vec.match(v, "^")}
   end
 
-  def traverse(at, p) do
-    dirs = cycle([u(), r(), d(), l()])
-    d = stream_head(dirs)
-    traverse(at, p, d, stream_tail(dirs), MapSet.new([{p, d}]))
+  def next_d(d) do
+    case(d) do
+      u() -> r()
+      r() -> d()
+      d() -> l()
+      l() -> u()
+    end
   end
 
-  def traverse(at, p, d, ds, ps) do
+  def traverse(at, p), do: traverse(at, p, u(), MapSet.new([{p, u()}]))
+
+  def traverse(at, p, d, ps) do
     p_new = Vec.dim_mappend(p, d)
     x = at.(p_new)
 
     cond do
       x == nil -> ps |> map(fn {p, _} -> p end) |> MapSet.new()
       MapSet.member?(ps, {p_new, d}) -> :loop
-      x in ~c"#" -> traverse(at, p, stream_head(ds), stream_tail(ds), ps)
-      x in ~c".^" -> traverse(at, p_new, d, ds, MapSet.put(ps, {p_new, d}))
+      x in ~c"#" -> traverse(at, p, next_d(d), ps)
+      x in ~c".^" -> traverse(at, p_new, d, MapSet.put(ps, {p_new, d}))
     end
   end
 

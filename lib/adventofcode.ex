@@ -1,5 +1,6 @@
 defmodule Adventofcode do
   use Application
+  # import ExProf.Macro
 
   def start(_type, _args) do
     {:ok, pid} = Task.start(fn -> main([]) end)
@@ -65,6 +66,7 @@ defmodule Adventofcode do
   # TODO find flip
   def app(args, f), do: apply(f, args)
 
+  # NOTE very slow
   def stream_head(xs), do: hd(take(xs, 1))
   def stream_tail(xs), do: Stream.drop(xs, 1)
 
@@ -104,5 +106,10 @@ defmodule Adventofcode do
     run("Y24.D04")
     run("Y24.D05")
     run("Y24.D06")
+
+    # https://github.com/parroty/exprof?tab=readme-ov-file#usage
+    # profile do
+    #   run("Y24.D06")
+    # end
   end
 end
