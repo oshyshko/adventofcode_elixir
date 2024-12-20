@@ -1,5 +1,6 @@
 defmodule Y24.D06 do
   import Adventofcode
+  import Enum
   import Vec
 
   def parse(s) do

@@ -1,5 +1,6 @@
 defmodule Y24.D04 do
   import Adventofcode
+  import Enum
   require Vec
 
   def parse(s), do: Vec.from_list(lines(s), 2)

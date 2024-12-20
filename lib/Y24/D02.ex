@@ -1,5 +1,6 @@
 defmodule Y24.D02 do
   import Adventofcode
+  import Enum
 
   # string -> [[int]]
   def parse(s) do

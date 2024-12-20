@@ -1,8 +1,9 @@
 defmodule Y24.D05 do
   import Adventofcode
+  import Enum
 
   def parse(s) do
-    [abs, [""], xss] = lines(s) |> chunk_by(&empty?/1)
+    [abs, [""], xss] = lines(s) |> chunk_by(&empty_string?/1)
 
     {abs |> map(&unpipe/1) |> mmap(&to_integer/1) |> MapSet.new(fn [a, b] -> {b, a} end),
      xss |> map(&uncsv/1) |> mmap(&to_integer/1)}

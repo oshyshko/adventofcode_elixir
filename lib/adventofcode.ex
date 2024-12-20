@@ -1,5 +1,6 @@
 defmodule Adventofcode do
   use Application
+  import Enum
   # import ExProf.Macro
 
   def start(_type, _args) do
@@ -14,7 +15,8 @@ defmodule Adventofcode do
   end
 
   # strings
-  def empty?(s), do: s == ""
+  def empty_string?(s), do: s == ""
+  defdelegate to_integer(x), to: String
 
   def lines(s) do
     xs = String.split(s, ~r/\R/) |> reverse
@@ -28,45 +30,13 @@ defmodule Adventofcode do
   # collections
   def concat_binaries(xs), do: Enum.reduce(xs, &(&2 <> &1))
 
-  # TODO find a better way to re-export
-  defdelegate to_integer(x), to: String
-
-  defdelegate any?(xs, f), to: Enum
-  defdelegate all?(xs, f), to: Enum
-  defdelegate member?(xs, x), to: Enum
-  defdelegate map(xs, f), to: Enum
-  defdelegate filter(xs, f), to: Enum
-  defdelegate count(xs, f), to: Enum
-  defdelegate chunk_by(xs, f), to: Enum
-
-  defdelegate reduce(xs, a, f), to: Enum
-
-  defdelegate at(xs, n), to: Enum
-  defdelegate take(xs, n), to: Enum
-  defdelegate drop(xs, n), to: Enum
-  defdelegate concat(xs, ys), to: Enum
-
-  defdelegate zip_with(xs, f), to: Enum
-  defdelegate zip(xs, ys), to: Enum
-  defdelegate unzip(xs), to: Enum
-
-  defdelegate sort(xs), to: Enum
-  defdelegate sort(xs, f), to: Enum
-  defdelegate reverse(xs), to: Enum
-  defdelegate frequencies(xs), to: Enum
-  defdelegate count(xs), to: Enum
-  defdelegate sum(xs), to: Enum
-
-  defdelegate chunk_every(xs, count, step, leftover), to: Enum
-
-  defdelegate cycle(xs), to: Stream
-
   # (a -> b) -> f (g a) -> f (g b)
   def mmap(xs, f), do: map(xs, fn x -> map(x, f) end)
   # TODO find flip
   def app(args, f), do: apply(f, args)
 
   # NOTE very slow
+  defdelegate cycle(xs), to: Stream
   def stream_head(xs), do: hd(take(xs, 1))
   def stream_tail(xs), do: Stream.drop(xs, 1)
 

@@ -1,5 +1,6 @@
 defmodule Y24.D03 do
   import Adventofcode
+  import Enum
 
   # string -> [:do | :dont | {:mul, x, y}]
   def parse(s) do
