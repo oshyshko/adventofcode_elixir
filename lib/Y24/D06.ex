@@ -2,16 +2,15 @@ defmodule Y24.D06 do
   import Adventofcode
   import Vec
 
-  def dirs, do: cycle([u(), r(), d(), l()])
-
   def parse(s) do
     v = Vec.from_list(lines(s), 2)
     {v, {_, _} = Vec.match(v, "^")}
   end
 
   def traverse(at, p) do
-    d = stream_head(dirs())
-    traverse(at, p, d, stream_tail(dirs()), MapSet.new([{p, d}]))
+    dirs = cycle([u(), r(), d(), l()])
+    d = stream_head(dirs)
+    traverse(at, p, d, stream_tail(dirs), MapSet.new([{p, d}]))
   end
 
   def traverse(at, p, d, ds, ps) do
