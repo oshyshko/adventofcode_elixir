@@ -33,20 +33,17 @@ defmodule Y24.D06 do
 
   def solve1(s) do
     {v, p} = parse(s)
-    at = &Vec.at(v, &1)
-    count(traverse(at, p))
+    count(traverse(&Vec.at(v, &1), p))
   end
 
   def solve2(s) do
     {v, p} = parse(s)
-    visited = traverse(&Vec.at(v, &1), p)
-    hash = hd(~c"#")
 
     sum(
-      for obstacle <- visited do
-        at = &((&1 == obstacle && hash) || Vec.at(v, &1))
+      for obstacle <- traverse(&Vec.at(v, &1), p) do
+        at = &((&1 == obstacle && hd(~c"#")) || Vec.at(v, &1))
 
-        (traverse(at, p) == :loop && 1) || 0
+        (:loop == traverse(at, p) && 1) || 0
       end
     )
   end
