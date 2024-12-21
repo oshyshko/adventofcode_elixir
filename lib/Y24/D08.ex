@@ -15,7 +15,7 @@ defmodule Y24.D08 do
     |> map(fn ps -> for a <- ps, b <- ps, a != b, d = Vec.p_sub(a, b), do: f.(v, a, b, d) end)
     |> List.flatten()
     |> filter(&Vec.member?(v, &1))
-    |> MapSet.new()
+    |> uniq()
     |> count()
   end
 
