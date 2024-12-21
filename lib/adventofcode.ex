@@ -74,6 +74,8 @@ defmodule Adventofcode do
     run("Y24.D05")
     run("Y24.D06")
     run("Y24.D07")
+    run("Y24.D08")
+
     # https://github.com/parroty/exprof?tab=readme-ov-file#usage
     # profile do
     #   run("Y24.D06")
