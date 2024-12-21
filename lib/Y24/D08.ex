@@ -22,12 +22,10 @@ defmodule Y24.D08 do
   def solve1(s), do: solve(s, fn _, a, b, d -> [Vec.p_add(a, d), Vec.p_sub(b, d)] end)
 
   def solve2(s) do
-    beam = fn v, p, d, f_pd ->
-      take_while(Stream.iterate(p, &f_pd.(&1, d)), &Vec.member?(v, &1))
-    end
-
     solve(s, fn v, a, b, d ->
-      beam.(v, a, d, &Vec.p_sub/2) ++ beam.(v, b, d, &Vec.p_add/2)
+      as = take_while(Stream.iterate(a, &Vec.p_sub(&1, d)), &Vec.member?(v, &1))
+      bs = take_while(Stream.iterate(b, &Vec.p_add(&1, d)), &Vec.member?(v, &1))
+      as ++ bs
     end)
   end
 end
