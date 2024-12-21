@@ -1,5 +1,4 @@
 defmodule Vec do
-  import Adventofcode
   require Enum
 
   defmacro u, do: {-1, 0}
@@ -22,7 +21,7 @@ defmodule Vec do
   def from_list(xs, 2) do
     %Vec{
       dims: {Enum.count(xs), xs |> Enum.at(0) |> String.length()},
-      binary: concat_binaries(xs)
+      binary: Enum.reduce(xs, &(&2 <> &1))
     }
   end
 

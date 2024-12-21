@@ -27,9 +27,6 @@ defmodule Adventofcode do
   def unpipe(s), do: String.split(s, ~r/\|/, trim: true)
   def uncsv(s), do: String.split(s, ~r/\,/, trim: true)
 
-  # collections
-  def concat_binaries(xs), do: Enum.reduce(xs, &(&2 <> &1))
-
   # (a -> b) -> f (g a) -> f (g b)
   def mmap(xs, f), do: map(xs, fn x -> map(x, f) end)
   # TODO find flip
@@ -77,7 +74,6 @@ defmodule Adventofcode do
     run("Y24.D05")
     run("Y24.D06")
     run("Y24.D07")
-
     # https://github.com/parroty/exprof?tab=readme-ov-file#usage
     # profile do
     #   run("Y24.D06")
