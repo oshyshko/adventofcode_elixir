@@ -20,7 +20,7 @@ defmodule Y24.D06 do
   def traverse(at, p), do: traverse(at, p, u(), MapSet.new([{p, u()}]))
 
   def traverse(at, p, d, ps) do
-    p_new = Vec.dim_mappend(p, d)
+    p_new = Vec.p_add(p, d)
     x = at.(p_new)
 
     cond do

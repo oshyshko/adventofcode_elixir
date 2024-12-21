@@ -29,12 +29,10 @@ defmodule Vec do
     for y <- 0..(ym - 1), do: :binary.part(binary, y * xm, xm)
   end
 
-  def at(%Vec{dims: {ym, xm}, binary: binary}, {y, x}, default \\ nil) do
-    if y < 0 || y >= ym || x < 0 || x >= xm do
-      default
-    else
-      :binary.at(binary, y * xm + x)
-    end
+  def member?(%Vec{dims: {ym, xm}}, {y, x}), do: y >= 0 && y < ym && x >= 0 && x < xm
+
+  def at(v = %Vec{dims: {_, xm}, binary: binary}, yx = {y, x}, default \\ nil) do
+    (member?(v, yx) && :binary.at(binary, y * xm + x)) || default
   end
 
   def each(%Vec{dims: {ym, xm}}), do: for(y <- 0..(ym - 1), x <- 0..(xm - 1), do: {y, x})
@@ -46,5 +44,7 @@ defmodule Vec do
     end
   end
 
-  def dim_mappend({y1, x1}, {y2, x2}), do: {y1 + y2, x1 + x2}
+  def p_neg({y, x}), do: {-y, -x}
+  def p_add({y1, x1}, {y2, x2}), do: {y1 + y2, x1 + x2}
+  def p_sub({y1, x1}, {y2, x2}), do: {y1 - y2, x1 - x2}
 end

@@ -10,7 +10,7 @@ defmodule Y24.D04 do
   def contains_trace1(v, p, d, what, i, n) do
     cond do
       i == n -> true
-      Vec.at(v, p) == :binary.at(what, i) -> contains_trace1(v, Vec.dim_mappend(p, d), d, what, i + 1, n)
+      Vec.at(v, p) == :binary.at(what, i) -> contains_trace1(v, Vec.p_add(p, d), d, what, i + 1, n)
       true -> false
     end
   end
@@ -40,7 +40,7 @@ defmodule Y24.D04 do
         is_mmss =
           member?(
             [~c"MMSS", ~c"MSMS", ~c"SMSM", ~c"SSMM"],
-            for(d <- Vec.diags(), do: Vec.at(v, Vec.dim_mappend(p, d)))
+            for(d <- Vec.diags(), do: Vec.at(v, Vec.p_add(p, d)))
           )
 
         (is_a && is_mmss && 1) || 0
